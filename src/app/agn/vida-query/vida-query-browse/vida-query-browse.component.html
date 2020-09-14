@@ -1,0 +1,49 @@
+<mat-card>
+    <mat-card-title>
+        Navegador Cine, Audio y Video
+    </mat-card-title>
+    <mat-card-content>
+        <div class="container-fluid p-0">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <mat-radio-group class="ml-2" formControlName="recurso">
+                        <mat-radio-button *ngFor="let val of recursosOptList" [value]="val.key">{{val.label}}</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <mat-form-field>
+                            <mat-label>Buscar</mat-label>
+                            <input type="text" matInput formControlName="termino">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field>
+                            <mat-label>En</mat-label>
+                            <mat-select #selBuscarEn formControlName="buscarEn" (selectionChange)="onChangeSelectionValue('buscarEn', selBuscarEn.value)">
+                                <mat-option *ngFor="let val of buscarEnOptList" [value]="val.key">
+                                    {{val.label}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field>
+                            <mat-label>Tipo de búsqueda</mat-label>
+                            <mat-select #selTipoBusqueda formControlName="tipoBusqueda" (selectionChange)="onChangeSelectionValue('tipoBusqueda', selTipoBusqueda.value)">
+                                <mat-option *ngFor="let val of tipoBusquedaOptList" [value]="val.key">
+                                    {{val.label}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="ml-3">
+                        <button mat-flat-button type="submit" color="primary" [disabled]="form.invalid || browseEnable">Buscar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>

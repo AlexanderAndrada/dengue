@@ -1,0 +1,11 @@
+@import 'variable';
+
+::ng-deep  {
+	@import 'structure';
+  @import 'typography';
+  @import 'helpers';
+  @import 'material-components';
+}
+::ng-deep  {
+  @import 'fonts';
+}

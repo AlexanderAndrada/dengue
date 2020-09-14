@@ -1,0 +1,97 @@
+<mat-card>
+	<mat-card-content>
+		<div class="container-fluid">
+			<div id='top' class="row align-items-center justify-content-center" >
+
+				<div id='first-panel' class='col' >
+					<!-- img class='top-image' src='{{mainimage}}' -->
+					<h1 class="top-title">{{ formTitle }} </h1>
+
+					<div class='top-description' 
+								innerHtml='{{description}}'></div>
+
+				</div>
+			</div>
+
+			<div id='bottom' class="row align-items-center justify-content-center" >
+				<div id='second-panel' class='col'>
+				<!-- El form comienza acá -->
+				<form [formGroup]="form"  >
+
+					<mat-form-field>
+						<input matInput
+								[formControl]="form.controls['name']" >
+						<mat-placeholder class="placeholder">tu nombre</mat-placeholder>
+			      <small class="form-message text-danger"
+			      	*ngIf="form.controls['name'].hasError('required') && form.controls['name'].touched" >
+			         Dato requerido</small>
+					</mat-form-field>
+
+					<mat-form-field>
+						<input matInput name="email"
+								[formControl]="form.controls['email']" >
+						<mat-placeholder class="placeholder">tu correo electrónico</mat-placeholder>
+
+			      <small class="form-message text-danger"
+			      	*ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" >
+			         Dato requerido</small>
+
+			      <small class="form-message text-danger"
+			      	*ngIf="form.controls['email'].hasError('email') && !form.controls['email'].hasError('required')
+			      	                                                &&  form.controls['email'].touched" >
+			         Debe ingresar una dirección de correo válida</small>
+
+					</mat-form-field>
+
+					<ng-container *ngIf="isLocacion">
+					<mat-form-field>
+						<input matInput
+								[formControl]="form.controls['locacion']" >
+						<mat-placeholder class="placeholder">tu ciudad o región</mat-placeholder>
+			      <small class="form-message text-danger"
+			      	*ngIf="form.controls['locacion'].hasError('required') && form.controls['locacion'].touched" >
+			         Dato requerido</small>
+					</mat-form-field>
+					</ng-container>
+
+					<ng-container *ngIf="isAsuntoMail">
+					<mat-form-field>
+						<input matInput name="slug"
+								[formControl]="form.controls['slug']" >
+						<mat-placeholder class="placeholder">asunto</mat-placeholder>
+
+			      <small class="form-message text-danger"
+			      	*ngIf="form.controls['slug'].hasError('required') && form.controls['slug'].touched" >
+			         Dato requerido</small>
+					</mat-form-field>
+				  </ng-container>
+
+					<mat-form-field>
+						<textarea matInput name="description" 
+								matTextareaAutosize matAutosizeMinRows="2" matAutosizeMaxRows="6"
+								[formControl]="form.controls['description']" ></textarea>
+						<mat-placeholder class="placeholder">contanos a qué te dedicás</mat-placeholder>
+
+					</mat-form-field>
+
+					<mat-checkbox  [formControl]="form.controls['termsofuse']" >
+						<button mat-button class='accept' color="accent" type="button" 
+							title='Terminos y condiciones de uso'
+							(click)='termsOfConditions()'  >Acepto los términos y condiciones de uso
+						</button>
+					</mat-checkbox>
+
+					<div id='top-submit' class="top-button" >
+						<button mat-raised-button color="primary" type="button" title='enviar datos'
+										(click)='enviarSolicitud()'  
+										 [disabled]=" !form.valid || !form.controls['termsofuse'].value" >enviar solicitud</button>
+
+					</div>
+
+				</form>
+				</div>
+			
+			</div>
+		</div>
+	</mat-card-content>
+</mat-card>

@@ -1,0 +1,24 @@
+<div *ngIf="!aclararLogica">
+    <h4 *ngIf="filtro.tipoFiltro === 'year'">¿Desea añadir como filtro de búsqueda el año {{filtro.data}}?</h4>
+    <div *ngIf="filtro.tipoFiltro === 'term_tema'">
+        <h4 >¿Desea añadir como filtro de busqueda alguno de los siguientes temas?</h4>
+        <form [formGroup]="temasGroup">
+            <mat-form-field>
+                <mat-select formControlName="temaSeleccionado">
+                    <mat-option *ngFor="let tema of temas" [value]="tema">{{tema}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+    
+    <button mat-flat-button color="primary" (click)="exect(true)">Agregar</button>
+    <button class="ml-2" mat-flat-button style="background-color:gray; color:white" (click)="exect(false)">Volver</button>
+</div>
+
+
+<div *ngIf="aclararLogica">
+    <h4 >¿De qué manera decide aplicarlo?</h4>
+    <button mat-flat-button color="primary" (click)="agregarLogica('and')">Incluyente</button>
+    <button class="ml-2" mat-flat-button color="primary" (click)="agregarLogica('not')">Excluyente</button>
+    <button class="ml-2" mat-flat-button color="primary" (click)="agregarLogica('or')">Lógica OR</button>
+</div>
