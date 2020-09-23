@@ -333,7 +333,7 @@ export class UserService {
 	//****************** END: login management  *****************
 
 	updateCurrentUser(): Promise<User> {
-		const url = `${this.usersUrl}/${'currentuser'}`;
+		/*const url = `${this.usersUrl}/${'currentuser'}`;
 		return this.http
 			.get(url)
 			.toPromise()
@@ -353,7 +353,8 @@ export class UserService {
 				this.userEmitter.next(this._currentUser);
 				return this._currentUser;
 			})
-			.catch(this.handleError);
+			.catch(this.handleError);*/
+			return null;
 	}
 
 	getEstados(){

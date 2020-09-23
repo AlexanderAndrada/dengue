@@ -23,7 +23,7 @@ export class EnterSiteComponent implements OnInit {
   	) { }
 
   ngOnInit() {
-    this.userListener = this.userService.initLoginUser();
+  /*  this.userListener = this.userService.initLoginUser();
 
     this.userListener.subscribe(user =>{
 
@@ -36,7 +36,7 @@ export class EnterSiteComponent implements OnInit {
       	this.router.navigate(['/', urlPath]);
       }
 
-    })
+    })*/
 
 
   }

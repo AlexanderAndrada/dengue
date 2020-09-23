@@ -17,9 +17,9 @@ export class AppComponent {
 
 	ngOnInit(){
 
-		if(!this.userService || !this.userService.currentUser){
+		/*if(!this.userService || !this.userService.currentUser){
 			this.router.navigate(['/develar/ingresar'])
-		}
+		}*/
 	}
 
 }

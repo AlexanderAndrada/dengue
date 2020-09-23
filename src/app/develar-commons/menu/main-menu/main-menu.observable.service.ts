@@ -26,10 +26,10 @@ export class MainMenuService {
         private userService: UserService,
       ) { 
 
-    this.userService.userEmitter.subscribe(user =>{
+   /* this.userService.userEmitter.subscribe(user =>{
 
       this.updateUserStatus(user);
-    })
+    })*/
   }
 
   get menuListener$(){

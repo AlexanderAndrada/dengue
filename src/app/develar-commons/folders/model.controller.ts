@@ -150,7 +150,8 @@ export class ModelController {
               this.openSnackBar('Grabación exitosa id: ' + model._id, 'cerrar');
               return model;
             });
-    }
+    
+  }
   }
 
 }
