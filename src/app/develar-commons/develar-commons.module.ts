@@ -97,6 +97,7 @@ import { MapPopupComponent } from './mapbox/components/map-popup/map-popup.compo
 import { MapBoxComponent }   from './mapbox/components/map-box/map-box.component';
 import { VjsPlayerComponent } from './vjs-player/vjs-player.component';
 import { SanitizeHtmlPipe } from './sanitize-html.pipe';
+import { InstructivoNumTramiteModalComponent } from './instructivo-num-tramite-modal/instructivo-num-tramite-modal.component';
 
 @NgModule({
   imports: [
@@ -117,6 +118,7 @@ import { SanitizeHtmlPipe } from './sanitize-html.pipe';
   declarations: [
     NavbarComponent,
     AgnNavbarComponent,
+    InstructivoNumTramiteModalComponent,
     MainMenuComponent,
     WorkgroupMenuComponent,
     DefaultLayoutComponent,
@@ -187,6 +189,7 @@ import { SanitizeHtmlPipe } from './sanitize-html.pipe';
     DevelarMaterialModule,
     AgmCoreModule,
     FileUploadModule,
+    InstructivoNumTramiteModalComponent,
     NavbarComponent,
     AgnNavbarComponent,
     MainMenuComponent,

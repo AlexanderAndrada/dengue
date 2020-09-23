@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" *ngIf="(user$ | async) as user">
+    <h5 class="my-0">Bienvenido</h5>
+
+    <span style="flex: 1 1 auto;"></span>
+
+
+    <p class="my-0" >
+        <small>{{user.nombre }} {{user.apellido }}</small>
+    </p>
+
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu" aria-label="Menú de perfil">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Cerrar sesión</span>
+      </button>
+    </mat-menu>

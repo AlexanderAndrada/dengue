@@ -41,7 +41,7 @@ export class NotificationService {
 
   error(message: string) {
     this.show(message, {
-      duration: 663000,
+      duration: 2500,
       panelClass: 'error-notification-overlay'
     });
   }

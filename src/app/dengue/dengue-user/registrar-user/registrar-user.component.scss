@@ -1,0 +1,34 @@
+:host {
+
+    background: url(../../../../assets/content/login-bg.jpg) 50% 50% no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    vertical-align: middle;
+    width: 100%;
+  
+  }
+  
+  .registro-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //background-image: url('/download/5f5a18f69b0b25494226f5cb');
+  }
+  .edicion-form-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+  
+  mat-card{
+      width: 50%;
+  }
+  
+  @media(max-width : 768px){
+      mat-card{
+          width: 100%;
+          height: 100%;
+      }
+  }

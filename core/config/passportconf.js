@@ -15,7 +15,7 @@ const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const LocalStrategy = require('passport-local').Strategy;
 const whoami = 'core/config/passportconf: '
 const user = require('../models/userModel.js');
-
+const userDengue = require('../models/dengueUserModel');
 const CALLBACK_URL = config.googleCbUrl
 
 passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'},
@@ -79,14 +79,60 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+/**
+ * Estrategica local de inicio de sesión para la vista pública de DENGUE
+ *
+ */
+passport.use('dengue-local', new LocalStrategy({ usernameField: 'username', passwordField: 'password' },
+    function(username, password, done) {
+        userDengue.findByUsername(username, function(error, user) {
+            if (error) {
+                return done(error);
+            }
+
+            if (!user) {
+                return done(null, false);
+            }
+
+            userDengue.verifyPassword(password, user.password, function(error, isMatch) {
+                if (isMatch) {
+                    return done(null, user);
+                } else {
+                    return done(null, false, { error: 'Contraseña incorrecta' });
+                }
+            });
+        })
+    }));
+
 passport.serializeUser(function(user, done) {
-  done(null, user._id);
+  //done(null, user._id);
+  const userToSave = {
+    _id: user._id,
+    source: (user.isUsuarioWeb != null ? 'webuser' : 'adminuser')
+};
+
+// done(null, { _id: objUser._id, source: objUser.isUsuarioWeb })
+done(null, userToSave);
 });
 
+/*
 passport.deserializeUser(function(id, done) {
   user.fetchById(id, function(err, user) {
     done(err, user);
   });
+});*/
+passport.deserializeUser(function(objuser, done) {
+  // console.log(objuser);
+
+  if (objuser.source && objuser.source === 'webuser') {
+      userDengue.findById(objuser._id, function(error, user) {
+          done(error, user);
+      });
+  } else {
+      user.fetchById(objuser._id, function(err, user) {
+          done(err, user);
+      });
+  }
 });
 
 module.exports = function(app){

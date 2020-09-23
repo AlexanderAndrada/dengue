@@ -49,7 +49,7 @@ const uploadRoutes = require('./services/uploadfs');
 const downloadRoutes = require('./routes/downloadRoutes');
 const conversationRoutes = require('./routes/conversationRoutes');
 const acervoRoutes = require('./routes/agnRoutes.js');
-
+const dengueUserRoutes = require('./routes/dengueUserRoutes');
 const app = express();
 
 // analizar estas declaraciones. Qué son 'cors': Cross origin request
@@ -95,7 +95,7 @@ const myLogger = function (req, res, next) {
 
 app.use(myLogger);
 console.log('++++++++dynamic begins ++++++++++')
-app.use('/pug', routes);
+/*app.use('/pug', routes);
 app.use('/api/parser', parserRoutes);
 app.use('/api/gcse', gcseRoutes);
 app.use('/api/crawl', crawlRoutes);
@@ -133,8 +133,8 @@ app.use('/api/tags', tagRoutes);
 app.use('/api/utils', commonRouter);
 app.use('/api/upload', uploadRoutes)
 app.use('/download', downloadRoutes)
-app.use('/api/vida', acervoRoutes);
-
+app.use('/api/vida', acervoRoutes);*/
+app.use('/api/dengue', dengueUserRoutes)
 //===============ERROR RENDERING BEGIN ==================
 // catch 404 and forward to error handler
 

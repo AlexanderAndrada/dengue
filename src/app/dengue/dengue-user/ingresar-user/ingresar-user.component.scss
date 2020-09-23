@@ -1,0 +1,42 @@
+:host {
+
+    background: url(../../../../assets/content/login-bg.jpg) 50% 50% no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    vertical-align: middle;
+    width: 100%;
+  
+  }
+  
+  
+  
+  #login-form-container {
+      display: flex;
+      align-items: center;
+  }
+    
+  #login-form {
+    margin: auto;
+    padding: 20px 50px;
+  }
+  
+  
+  #btn-acceder {
+    float: right;
+  }
+  
+  #btn-volver {
+    float: left;
+  }
+  
+  .btn-left {
+    //margin-top: 10%;
+    float: left;
+  }
+  
+  mat-card-actions{
+    margin-left: 0;
+  }
+  
