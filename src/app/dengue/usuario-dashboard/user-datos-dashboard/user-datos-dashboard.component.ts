@@ -19,7 +19,10 @@ export class UserDatosDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$.subscribe(user => {
-      this.id = user._id;
+      if(user){
+        this.id = user._id;
+      }
+      
     })
   }
 
