@@ -6,6 +6,7 @@ import { RecuperarPasswordUserComponent } from './dengue-user/recuperar-password
 import { IngresarUserComponent } from './dengue-user/ingresar-user/ingresar-user.component';
 import { UsuarioDashboardComponent } from './usuario-dashboard/usuario-dashboard.component';
 import { UsuarioDashboardMainComponent } from './usuario-dashboard/usuario-dashboard-main/usuario-dashboard-main.component';
+import { FormSintomasComponent } from './usuario-dashboard/form-sintomas/form-sintomas.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,10 @@ const routes: Routes = [
         // pathMatch: 'full',
         component: RegistrarUserComponent,
       
+      },
+      {
+        path: 'form-diario',
+        component: FormSintomasComponent
       },
       {
         path: '',

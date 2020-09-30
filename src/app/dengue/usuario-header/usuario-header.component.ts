@@ -37,6 +37,10 @@ export class UsuarioHeaderComponent implements OnInit {
   toggleUserEditData(): void {
   }
 
+  cargarSintomas() : void {
+    this._router.navigate(['dengue','usuario','dashboard','form-diario'])
+  }
+
 
   exit() : void {
     this._router.navigateByUrl('');

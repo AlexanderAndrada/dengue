@@ -30,7 +30,7 @@ export class IngresarUserComponent implements OnInit {
 
   initGroup(): void {
     this.form = this._formBuilder.group({
-      username: ["", Validators.required],
+      username: ["", Validators.compose([Validators.email,Validators.required])  ],
       password: ["", Validators.required],
     });
   }
@@ -54,11 +54,11 @@ export class IngresarUserComponent implements OnInit {
         this.loadLoginUser();
         this._router.navigate(['/dengue/usuario/dashboard']);
       } else {
-        this._notificacionService.error("Contraseña incorrecta");
+        this._notificacionService.error("Contraseña o correo incorrecto");
       }
     }).catch((err) => {
       
-      this._notificacionService.error("Contraseña incorrecta");
+      this._notificacionService.error("Contraseña o usuario incorrecto");
     });
   }
 

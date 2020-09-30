@@ -1,0 +1,58 @@
+<mat-card>
+    <mat-card-title>
+        Formulario de sintomas
+    </mat-card-title>
+    <mat-card-subtitle>
+        A continuación indique si usted poseé algunos de los sintomas que se mencionan a continuación
+    </mat-card-subtitle>
+    <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <mat-card-content>
+            <div class="container-fluid p-0">
+                <div class="row">
+                    <div class="col-12">
+                        <mat-checkbox formControlName="nauseas">
+                            ¿Tiene nauseas?
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-12">
+                        <mat-checkbox formControlName="vomitos">
+                            ¿Tiene vomitos?
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-12">
+                        <mat-checkbox formControlName="cabeza">
+                            ¿Tiene dolor de cabeza?
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-12">
+                        <mat-checkbox formControlName="sarpullido">
+                            ¿Tiene sarpullido?
+                        </mat-checkbox>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-checkbox formControlName="ojos">
+                            ¿Tiene molestias y dolores en los ojos, o detrás de ellos?
+                        </mat-checkbox>
+                    </div>
+
+                    <div class="col-12">
+                        <mat-checkbox formControlName="musculares">
+                            ¿Tiene molestias y/o dolores musculares en las articulaciones, o dolor de huesos?
+                        </mat-checkbox>
+                    </div>
+                    <div class="col-12">
+                        <mat-form-field>
+                            <mat-label>Contanos un poco más</mat-label>
+                            <input matInput formControlName="description">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button type="submit" color="primary" mat-flat-button>Confirmar</button>
+            <button type="button" class="ml-3" color="warn" mat-flat-button (click)="volver()">Cancelar</button>
+        </mat-card-actions>
+    </form>
+</mat-card>

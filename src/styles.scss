@@ -59,3 +59,15 @@ mat-slider {
     font-size: medium;
     font-family: Cambria, Cochin, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
+
+@media screen and (max-width : 768px){
+    mat-card{
+        width: 100%;
+        height: 100%;
+        
+.mat-checkbox-layout {
+    white-space: break-spaces !important;
+}        
+    }
+   
+}

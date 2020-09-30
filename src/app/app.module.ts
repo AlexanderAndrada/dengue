@@ -1,6 +1,6 @@
 import { BrowserModule }                    from '@angular/platform-browser';
 import { CommonModule }                     from '@angular/common';
-import { NgModule }                         from '@angular/core';
+import { NgModule, LOCALE_ID }                         from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule}                  from '@angular/common/http';
 import { BrowserAnimationsModule }          from '@angular/platform-browser/animations';
@@ -34,7 +34,10 @@ import { RouterModule }                     from '@angular/router';
   entryComponents: [],
   bootstrap: [ AppComponent ],
   //providers: [ {provide: HTTP_INTERCEPTORS, useClass: InterceptHttpService, multi: true }, UserService, SharedService ]
-  providers: [ UserService, SharedService ]
+  providers: [ UserService, SharedService, {
+    provide: LOCALE_ID,
+    useValue: 'es-AR'
+  } ]
 
 })
 
