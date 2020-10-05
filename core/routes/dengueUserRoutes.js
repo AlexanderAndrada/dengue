@@ -163,5 +163,40 @@ router.post('/usuarios/resetpassword', function(req, res) {
         });
 });
 
+/**
+ * Ruta: /api/dengue/usuarios/:id
+ * Método: PUT
+ * Descripción: edita usuario
+ *
+ */
+
+router.put('/usuarios/:id', function (req, res) {
+    service.update(req.params.id, req.body, 
+        function (err) {
+            res.status(400).json(err);
+
+        }, function(entity) {
+            res.status(201).json(entity);
+
+        });
+});
+
+/**
+ * Ruta: /api/dengue/usuarios/search
+ * Método: GET
+ * Descripción: recuperar usuarios que cumplan el criterio de búsqueda
+ *
+ */
+router.get('/usuarios/search', function(req, res) {
+    console.log('findByQuery query -> %o', req.query);
+
+    service.findByQuery(req.query, function(error) {
+        res.status(400).json(error);
+    }, function(results) {
+        res.status(200).json(results);
+    });
+});
+
+
 
 module.exports = router;

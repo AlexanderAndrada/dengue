@@ -1,5 +1,5 @@
-import { Component, OnInit} from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl, AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 import { MatDialog } from '@angular/material/dialog';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,8 @@ import { DengueUserService } from '../dengue-user.service';
 import { Usuario } from '../../models/usuario';
 import { PreguntaSecreta, DengueHelper } from '../../dengue.helper';
 import { InstructivoNumTramiteModalComponent } from '../../../develar-commons/instructivo-num-tramite-modal/instructivo-num-tramite-modal.component';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registrar-user',
@@ -18,11 +20,13 @@ import { InstructivoNumTramiteModalComponent } from '../../../develar-commons/in
 export class RegistrarUserComponent implements OnInit {
 
   form: FormGroup;
-  title : string = 'Registrarse';
-  button_label : string = 'Registrarse';
-  ruta : Array<string> = ['dengue', 'ingresar']
+  title: string = 'Registrarse';
+  button_label: string = 'Registrarse';
+  ruta: Array<string> = ['dengue', 'ingresar']
   showPassword: boolean = false;
-  showForm : boolean = false;
+  private emailOrigen: string;
+  showForm: boolean = false;
+  public docBelongsTo = { error: '' };
   private password = new FormControl('', Validators.required);
   private confirmPassword = new FormControl(
     '',
@@ -46,8 +50,8 @@ export class RegistrarUserComponent implements OnInit {
     let id = this._activatedRouter.snapshot.params.id;
     if (id) {
       this.initUser(id);
-    }else{
-    this.initGroup();
+    } else {
+      this.initGroup();
     }
   }
 
@@ -56,10 +60,11 @@ export class RegistrarUserComponent implements OnInit {
       if (usuario && (usuario._id === id)) {
         this.usuario = usuario;
         this.isEdit = true;
+        this.emailOrigen = this.usuario.email;
         this.initGroup();
         this.title = 'Edición de datos del usuario';
         this.button_label = 'Editar';
-        this.ruta = ['dengue','usuario','dashboard'];
+        this.ruta = ['dengue', 'usuario', 'dashboard'];
       }
     })
   }
@@ -67,7 +72,11 @@ export class RegistrarUserComponent implements OnInit {
   private initGroup(): void {
     this.form = this._fb.group({
       tipoDoc: [this.isEdit ? this.usuario.tipoDoc : 'DNI', Validators.required],
-      ndoc: [this.isEdit ? this.usuario.ndoc : '', Validators.compose([Validators.minLength(7), Validators.maxLength(8), Validators.pattern('[0-9]+')])],
+      ndoc: [this.isEdit ? this.usuario.ndoc : '', [Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(10),
+      Validators.pattern('[0-9]*')],
+      ],
       numTramite: [
         this.isEdit ? this.usuario.numTramite : '',
         Validators.compose([Validators.pattern('[0-9]+'), Validators.minLength(11), Validators.maxLength(11), Validators.required]),
@@ -77,7 +86,7 @@ export class RegistrarUserComponent implements OnInit {
         this.isEdit ? this.usuario.telefono : '',
         Validators.compose([Validators.pattern('[0-9]+'), Validators.required]),
       ],
-      email: [this.isEdit ? this.usuario.email : '', Validators.compose([Validators.email, Validators.required])],
+      email: [this.isEdit ? this.usuario.email : '', [Validators.email, Validators.required], [this.emailExistenteValidator(this, this._userService, this.docBelongsTo)]],
       password: this.password,
       confirmPassword: this.confirmPassword,
       termscond: [null, Validators.requiredTrue],
@@ -89,8 +98,9 @@ export class RegistrarUserComponent implements OnInit {
 
     if (this.usuario) {
       this.removeControl();
-    }else{
+    } else {
       this.showForm = true;
+      this.form.get('ndoc').setAsyncValidators(this.dniExistenteValidator(this, this._userService, this.docBelongsTo))
     }
   }
 
@@ -98,6 +108,10 @@ export class RegistrarUserComponent implements OnInit {
     this.form.removeControl('termscond');
     this.form.removeControl('password');
     this.form.removeControl('confirmPassword');
+    this.form.get('tipoDoc').disable();
+    this.form.get('ndoc').disable();
+    this.form.get('ndoc').clearAsyncValidators();
+    this.form.get('numTramite').disable();
     this.showForm = true;
   }
 
@@ -136,7 +150,7 @@ export class RegistrarUserComponent implements OnInit {
     user.respuestaSecreta = this.eliminarDiacriticos(user.respuestaSecreta.toLowerCase());
 
     //Verificamos si estamos en modo edición o modo alta
-    if(!this.isEdit){
+    if (!this.isEdit) {
       this._userService.createUserAGN(user).then((user) => {
         this._notificacionService.success("Usuario registrado con éxito");
         this.volver();
@@ -146,8 +160,8 @@ export class RegistrarUserComponent implements OnInit {
         );
       });
     }
-    else{
-      this._userService.updateDataUser(this.usuario._id, user).then( user => {
+    else {
+      this._userService.updateDataUser(this.usuario._id, user).then(user => {
         this._notificacionService.success("Usuario editado con éxito");
         this._userService.userEmitter.next(user);
         this.volver();
@@ -157,11 +171,11 @@ export class RegistrarUserComponent implements OnInit {
         );
       });
     }
-    
+
   }
 
-  eliminarDiacriticos(texto : string) {
-    return texto.normalize('NFD').replace(/[\u0300-\u036f]/g,"");
+  eliminarDiacriticos(texto: string) {
+    return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
   }
 
   volver(): void {
@@ -172,6 +186,57 @@ export class RegistrarUserComponent implements OnInit {
     return fecha.getFullYear() + '/' + (fecha.getMonth() + 1) + '/' + fecha.getDate();
   }
 
+  dniExistenteValidator(that: any, service: DengueUserService, message: object): AsyncValidatorFn {
+    return ((control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      let value = control.value;
+      let tdoc = that.form.controls['tipoDoc'].value || 'DNI';
+
+      return service.testUserByDNI(tdoc, value).pipe(
+        map(t => {
+          let invalid = false;
+          let txt = '';
+
+          if (t && t.length) {
+            invalid = true;
+            txt = 'Documento existente: ' + t[0].nombre + ' ' + t[0].apellido;
+          }
+
+          message['error'] = txt;
+          return invalid ? { 'mailerror': txt } : null;
+        })
+      )
+    });
+  }
+
+  emailExistenteValidator(that: any, service: DengueUserService, message: object): AsyncValidatorFn {
+    return ((control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      let value = control.value;
+
+      return service.testUserByEmail(value).pipe(
+        map(t => {
+          let invalid = false;
+          let txt = '';
+
+          if (t && t.length) {
+            if (t[0].email === this.emailOrigen) {
+              invalid = false;
+            } else {
+              invalid = true;
+              txt = 'Correo electrónico existente: ' + t[0].nombre + ' ' + t[0].apellido;
+            }
+          }
+
+          message['error'] = txt;
+          return invalid ? { 'mailerror': txt } : null;
+        })
+      )
+    });
+
+  }
+
+  hasError = (controlName: string, errorName: string) => {
+    return this.form.controls[controlName].hasError(errorName);
+  }
 }
 
 export class RegistroUser {

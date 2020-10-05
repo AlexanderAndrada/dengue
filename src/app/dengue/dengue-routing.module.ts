@@ -7,6 +7,7 @@ import { IngresarUserComponent } from './dengue-user/ingresar-user/ingresar-user
 import { UsuarioDashboardComponent } from './usuario-dashboard/usuario-dashboard.component';
 import { UsuarioDashboardMainComponent } from './usuario-dashboard/usuario-dashboard-main/usuario-dashboard-main.component';
 import { FormSintomasComponent } from './usuario-dashboard/form-sintomas/form-sintomas.component';
+import { PacientesPageComponent } from './usuario-dashboard/pacientes-page/pacientes-page.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,10 @@ const routes: Routes = [
       {
         path: 'form-diario',
         component: FormSintomasComponent
+      },
+      {
+        path: 'pacientes',
+        component : PacientesPageComponent
       },
       {
         path: '',

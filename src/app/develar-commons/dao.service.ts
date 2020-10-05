@@ -203,7 +203,8 @@ export class DaoService {
         backendURL: 'api/utils/geocode'
       },
       dengueUser : {
-        backendURL : 'api/dengue/usuarios'
+        backendURL : 'api/dengue/usuarios',
+        searchURL: 'api/dengue/usuarios/search'
       }
     };
   }

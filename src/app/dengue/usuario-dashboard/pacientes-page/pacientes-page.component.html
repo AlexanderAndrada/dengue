@@ -1,0 +1,13 @@
+<mat-card>
+    <mat-card-title>
+        Pacientes
+    </mat-card-title>
+    <mat-card-subtitle>
+        A continuación se presentaran los pacientes dados de alta en el sistema
+    </mat-card-subtitle>
+    <mat-card-content>
+        <app-pacientes-table [data$]="usuariosList" >
+        </app-pacientes-table>
+       
+    </mat-card-content>
+</mat-card>

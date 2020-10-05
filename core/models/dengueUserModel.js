@@ -7,6 +7,17 @@ const key = Buffer.from('5ed90daa50a3d7fd1a1ea7a1d7883fc62ccffc49de570ec37eebf05
 const IV = Buffer.from('a2e50e8df4c5ad20b6af1269ba2552be', 'hex');
 const person = require('../models/personModel');
 
+const sintomasSch = new Schema({
+    nauseas : { type: Boolean, required : false},
+    vomitos : { type: Boolean, required : false},
+    cabeza : { type: Boolean, required : false},
+    sarpullido : { type: Boolean, required : false},
+    ojos : { type: Boolean, required : false},
+    musculares : { type: Boolean, required : false},
+    description : { type: String, required: false},
+    person_id : { type: String, required : false}
+}) 
+
 const dengueUsuarioWebSch = new Schema({
     ndoc: { type: Number, required: true },
     tipoDoc: { type: String, required: true, default: 'DNI' },
@@ -21,8 +32,14 @@ const dengueUsuarioWebSch = new Schema({
     tsFechaNacimiento: { type: Number, required: true },
     preguntaSecreta: { type: String, required: true },
     respuestaSecreta: { type: String, required: true },
-    isUsuarioWeb: { type: Boolean, required: true, default: true }
+    isUsuarioWeb: { type: Boolean, required: true, default: true },
+    isMedico : { type : Boolean, required: false, default : false},
+    atendidox : { type: String, required : false},
+    pacientesAtentidos : { type: Array, required : false},
+    sintomas: [sintomasSch]
 });
+
+
 
 /******************************************************************************
  * Funciones utilitarias
@@ -32,8 +49,31 @@ const dengueUsuarioWebSch = new Schema({
 function buildQuery(query) {
     let q = {};
 
+    // TODO: En el modelo, este campo debiera llamarse tdoc
+    if (query.tdoc) {
+        q['tipoDoc'] = query.tdoc;
+    }
+
+    if (query.ndoc) {
+        q['ndoc'] = query.ndoc;
+    }
+
+    if (query.email) {
+        q['email'] = query.email;
+    }
+
+    if(query.isMedico) {
+        q['isMedico'] = query.isMedico
+    }
+
     return q;
 }
+
+// function buildQuery(query) {
+//     let q = {};
+
+//     return q;
+// }
 
 function encrypt(input) {
     const cifrador = crypto.createCipheriv('aes-256-ctr', key, IV);
@@ -152,3 +192,17 @@ exports.resetPassword = function(data, errorCallback, callback) {
         }
     });
 }
+
+exports.findByQuery = function(query, errorCallback, successCallback) {
+    const regexQuery = buildQuery(query);
+
+    record.find(regexQuery).lean().exec(function(error, result) {
+        if (error) {
+            errorCallback(error);
+        } else {
+            successCallback(result);
+        }
+    });
+}
+
+

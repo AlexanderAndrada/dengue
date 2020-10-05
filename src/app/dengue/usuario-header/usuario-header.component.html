@@ -17,7 +17,7 @@
           <mat-icon>exit_to_app</mat-icon>
           <span>Cerrar sesión</span>
       </button>
-      <button mat-menu-item (click)="cargarSintomas()">
+      <button mat-menu-item (click)="cargarSintomas()" *ngIf="!user.isMedico">
         <mat-icon>note_add</mat-icon>
         <span>Cargar sintomas</span>
     </button>

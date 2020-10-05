@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Subject } from "rxjs";
+import { BehaviorSubject, Subject, Observable } from "rxjs";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
 import { DaoService } from "../../develar-commons/dao.service";
 import { Usuario } from '../models/usuario';
@@ -74,7 +74,6 @@ export class DengueUserService {
     let loginUser = new Subject<Usuario>();
 
     this.loadLoginUser().then((res) => {
-      console.log(res)
       fetchedUser = res as Usuario;
       loggedIn = (fetchedUser && fetchedUser._id) ? true : false;
 
@@ -139,4 +138,35 @@ export class DengueUserService {
     return this.http.put<Usuario>('api/dengue/usuario/'+id,data, {headers : this.headers}).toPromise().catch();
   }
 
+   //TEST
+
+   public testUserByDNI(tdoc:string, ndoc:string ): Observable<Usuario[]>{
+
+    let query = {
+      tdoc: tdoc,
+      ndoc: parseInt(ndoc)
+    }
+    return this.daoService.search<Usuario>('dengueUser', query);
+
+
+  }
+
+
+
+
+
+  public testUserByEmail(email ): Observable<Usuario[]>{
+    let query = {
+      email: email,
+    }
+    return this.daoService.search<Usuario>('dengueUser', query)
+
+  }
+
+  public getAllPacientes () : Observable<Usuario[]> {
+    let query = {
+      isMedico : false
+    }
+    return this.daoService.search<Usuario> ('dengueUser',query);
+  }
 }

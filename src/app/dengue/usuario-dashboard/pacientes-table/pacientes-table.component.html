@@ -1,0 +1,54 @@
+<ng-container *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+</ng-container>
+
+<mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+            </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="nombre">
+        <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+        <mat-cell *matCellDef="let usuario">{{ usuario.nombre }} {{usuario.apellido}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ndoc">
+        <mat-header-cell *matHeaderCellDef>N° Doc</mat-header-cell>
+        <mat-cell *matCellDef="let usuario">{{ usuario.ndoc }}</mat-cell>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="tipoConsulta">
+        <mat-header-cell *matHeaderCellDef>Tipo de consulta</mat-header-cell>
+        <mat-cell *matCellDef="let turno">{{ turno.tipoConsulta }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="detalle">
+        <mat-header-cell *matHeaderCellDef>Detalle</mat-header-cell>
+        <mat-cell *matCellDef="let turno">{{ turno.detalle }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+        <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+        <mat-cell *matCellDef="let turno">{{ turno.estado }}</mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="rowactions">
+        <mat-header-cell *matHeaderCellDef>&nbsp;</mat-header-cell>
+        <mat-cell *matCellDef="let usuario">
+            <mat-icon matTooltip="Editar este Usuario"  class="mr-3" (click)="editItem(usuario)">edit</mat-icon>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+</mat-table>
