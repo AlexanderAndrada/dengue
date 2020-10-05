@@ -27,7 +27,7 @@ export class PacientesTableComponent implements OnInit {
     // 'tipoConsulta',
     // 'detalle',
     // 'estado',
-    // 'rowactions'
+     'rowactions'
   ];
   private initialSelection = [];
   private allowMultiSelect = true;
