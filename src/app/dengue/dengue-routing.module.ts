@@ -8,6 +8,7 @@ import { UsuarioDashboardComponent } from './usuario-dashboard/usuario-dashboard
 import { UsuarioDashboardMainComponent } from './usuario-dashboard/usuario-dashboard-main/usuario-dashboard-main.component';
 import { FormSintomasComponent } from './usuario-dashboard/form-sintomas/form-sintomas.component';
 import { PacientesPageComponent } from './usuario-dashboard/pacientes-page/pacientes-page.component';
+import { ContactanosComponent } from './usuario-dashboard/contactanos/contactanos.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,10 @@ const routes: Routes = [
       {
         path: 'pacientes',
         component : PacientesPageComponent
+      },
+      {
+        path: 'contactanos',
+        component : ContactanosComponent
       },
       {
         path: '',

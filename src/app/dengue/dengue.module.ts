@@ -18,12 +18,13 @@ import { ListaHospitalesComponent } from './usuario-dashboard/lista-hospitales/l
 import { PacientesDashboardComponent } from './usuario-dashboard/pacientes-dashboard/pacientes-dashboard.component';
 import { PacientesPageComponent } from './usuario-dashboard/pacientes-page/pacientes-page.component';
 import { PacientesTableComponent } from './usuario-dashboard/pacientes-table/pacientes-table.component';
+import { ContactanosComponent } from './usuario-dashboard/contactanos/contactanos.component';
 
 
 @NgModule({
   declarations: [IngresarUserComponent, RegistrarUserComponent,
      RecuperarPasswordUserComponent, DenguePageComponent, UsuarioDashboardComponent, 
-     UsuarioHeaderComponent, UsuarioDashboardMainComponent, UserDatosDashboardComponent, FormSintomasComponent, ListaHospitalesComponent, PacientesDashboardComponent, PacientesPageComponent, PacientesTableComponent],
+     UsuarioHeaderComponent, UsuarioDashboardMainComponent, UserDatosDashboardComponent, FormSintomasComponent, ListaHospitalesComponent, PacientesDashboardComponent, PacientesPageComponent, PacientesTableComponent, ContactanosComponent],
   imports: [
     CommonModule,
     DengueRoutingModule,

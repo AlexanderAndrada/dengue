@@ -1,0 +1,29 @@
+<div class="container">
+    <mat-card>
+        <mat-card-title>
+            Reportar problema
+        </mat-card-title>
+        <mat-card-subtitle>
+            Le solicitaremos que a continuación nos comente que problema, o dificultad tuvo, para poder asistirlo a la
+            brevedad.
+        </mat-card-subtitle>
+        <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <mat-card-content>
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field appearance="outline">
+                                <mat-label>Contanos</mat-label>
+                                <input matInput formControlName="description">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" class="ml-3" color="primary" mat-flat-button [disabled]="formGroup.invalid">Confirmar</button>
+                <button type="button" class="ml-3" color="warn" mat-flat-button (click)="volver()">Cancelar</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

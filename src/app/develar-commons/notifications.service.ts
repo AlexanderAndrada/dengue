@@ -27,7 +27,7 @@ export class NotificationService {
 
   success(message: string) {
     this.show(message, {
-      duration: 2000,
+      duration: 4000,
       panelClass: 'success-notification-overlay'
     });
   }

@@ -18,6 +18,8 @@ const sintomasSch = new Schema({
     person_id : { type: String, required : false}
 }) 
 
+
+
 const dengueUsuarioWebSch = new Schema({
     ndoc: { type: Number, required: true },
     tipoDoc: { type: String, required: true, default: 'DNI' },

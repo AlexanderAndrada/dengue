@@ -205,6 +205,10 @@ export class DaoService {
       dengueUser : {
         backendURL : 'api/dengue/usuarios',
         searchURL: 'api/dengue/usuarios/search'
+      },
+      reportes : {
+        backendURL : 'api/reportes',
+        searchURL : 'api/reportes/search'
       }
     };
   }
