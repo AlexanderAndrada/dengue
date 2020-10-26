@@ -1,0 +1,10 @@
+.imagen-dengue {
+    width: 2%;
+    height: 50%;
+}
+
+@media(max-width: 768px){
+    .imagen-dengue{
+        width: 10%;
+    }
+}

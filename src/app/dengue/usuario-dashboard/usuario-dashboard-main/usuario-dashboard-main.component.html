@@ -2,6 +2,10 @@
     <div class="col-12 col-md-6  mt-2">
         <app-user-datos-dashboard [title]="'Usuario'" [subtitle]="'Información de usuario'" [user$]="user$"></app-user-datos-dashboard>
     </div>
+
+    <div class="col-12 col-md-6 mt-2">
+        <lista-hospitales></lista-hospitales>
+    </div>
     <div class="col-12 col-md-6 mt-2" *ngIf="(user$ | async) as user">
         <app-pacientes-dashboard *ngIf="user.isMedico"></app-pacientes-dashboard>
     </div>

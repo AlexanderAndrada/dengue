@@ -1,11 +1,38 @@
-<div class="container-fluid p-0" id="ingresar-container">
-    <mat-card >
-        <mat-card-title class="text-center">Unite a la comunidad</mat-card-title>
-        <mat-card-content>
-            <p>Te ayudamos a cuidarte, detectar esta enfermedad en etapas tempranas es primordial</p>
-        </mat-card-content>
-        <mat-card-actions class="text-center">
-            <button mat-flat-button color="primary" [routerLink]="['ingresar']">INGRESAR</button>
-        </mat-card-actions>
-    </mat-card>
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-6 p-0">
+            <img src="../../../assets/img/dengue.gif" alt="Dengue Fondo" class="fondoimg">
+        </div>
+        <div class="col-6 p-0">
+            <mat-card class="ingresar-container">
+                <div class="container-fluid p-0">
+                    <mat-card-title class="text-center">UNITE A LA COMUNIDAD</mat-card-title>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <p>Te ayudamos a cuidarte, detectar esta enfermedad en etapas tempranas es primordial.
+                                </p>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions class="text-center">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <button class="ingresar-button" [routerLink]="['ingresar']">INGRESAR</button>
+                            </div>
+                        </div>
+                    </mat-card-actions>
+                    <div class="row" class="text-center">
+                        <img mat-card-img src="../../../assets/img/dengue-cuidados.jpeg" alt="Cuidados"
+                            class="imagen-prevencion">
+
+                    </div>
+                </div>
+
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <p class="ml-5">Copyright (©) 10/2020. Beta V1.0. Práctica Profesional. UNO. Grupo 1</p>
+    </div>
 </div>

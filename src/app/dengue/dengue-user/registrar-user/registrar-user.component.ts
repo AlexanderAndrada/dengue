@@ -198,7 +198,7 @@ export class RegistrarUserComponent implements OnInit {
 
           if (t && t.length) {
             invalid = true;
-            txt = 'Documento existente: ' + t[0].nombre + ' ' + t[0].apellido;
+            txt = 'Documento existente'
           }
 
           message['error'] = txt;
@@ -222,7 +222,7 @@ export class RegistrarUserComponent implements OnInit {
               invalid = false;
             } else {
               invalid = true;
-              txt = 'Correo electrónico existente: ' + t[0].nombre + ' ' + t[0].apellido;
+              txt = 'Correo electrónico existente'
             }
           }
 
